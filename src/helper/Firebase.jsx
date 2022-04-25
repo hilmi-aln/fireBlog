@@ -24,7 +24,7 @@ export const createUser = async (email, password, navigate) => {
     // updateProfile(auth, { displayName: email });
     successNotify("Registered successfully!");
     navigate("/");
-    // console.log(userCredential);
+    console.log(userCredential);
   }
   catch (error) {
     errorNotify(error.message);
