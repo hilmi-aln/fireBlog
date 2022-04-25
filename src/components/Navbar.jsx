@@ -87,7 +87,7 @@ export default function Navbar() {
                 // console.log("true blok")
                 <>
                   <MenuItem onClick={handleClose}>Profil</MenuItem>
-                  <MenuItem onClick={handleClose}>New</MenuItem>
+                  <MenuItem onClick={() => navigate("/new")}>New</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   
                 </>
