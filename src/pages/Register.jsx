@@ -1,8 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import blog from "../assets/blok.png";
+import { createUser } from '../helper/Firebase';
 import "./LoginStyle.css";
 
+
 function Register() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    createUser(email, password, navigate);
+    console.log(email, password);
+  }
+
   return (
     <section className="vh-50" >
       <div className="container py-5 h-80">
@@ -20,8 +33,9 @@ function Register() {
                     type="email"
                     id="typeEmailX-2"
                     className="form-control form-control-lg"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  <label className="form-label" for="typeEmailX-2">
+                  <label className="form-label" htmlFor="typeEmailX-2">
                     Email
                   </label>
                 </div>
@@ -31,8 +45,9 @@ function Register() {
                     type="password"
                     id="typePasswordX-2"
                     className="form-control form-control-lg"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
-                  <label className="form-label" for="typePasswordX-2">
+                  <label className="form-label" htmlFor="typePasswordX-2">
                     Password
                   </label>
                 </div>
@@ -41,6 +56,7 @@ function Register() {
                 <button
                   className="btn btn-primary btn-lg btn-block"
                   type="submit"
+                  onClick={handleSubmit}
                 >
                   Register
                 </button>
