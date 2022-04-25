@@ -1,8 +1,15 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import blog from "../assets/blok.png";
+import { signInUser, signInWithGoogle } from "../helper/Firebase";
 import "./LoginStyle.css";
 
 
 function Login() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const navigate = useNavigate();
+
   return (
     <section className="vh-50" >
       <div className="container py-5 h-80">
@@ -20,8 +27,9 @@ function Login() {
                     type="email"
                     id="typeEmailX-2"
                     className="form-control form-control-lg"
+                    onChange={(e) => setEmail(e.target.value)}
                   />
-                  <label className="form-label" for="typeEmailX-2">
+                  <label className="form-label" htmlFor="typeEmailX-2">
                     Email
                   </label>
                 </div>
@@ -31,8 +39,9 @@ function Login() {
                     type="password"
                     id="typePasswordX-2"
                     className="form-control form-control-lg"
+                    onChange={(e) => setPassword(e.target.value)}
                   />
-                  <label className="form-label" for="typePasswordX-2">
+                  <label className="form-label" htmlFor="typePasswordX-2">
                     Password
                   </label>
                 </div>
@@ -41,6 +50,7 @@ function Login() {
                 <button
                   className="btn btn-primary btn-lg btn-block"
                   type="submit"
+                  onClick={() => {signInUser(email, password, navigate)}}
                 >
                   Login
                 </button>
@@ -51,6 +61,7 @@ function Login() {
                   className="btn btn-lg btn-block btn-primary"
                   style={{ backgroundColor: "#dd4b39" }}
                   type="submit"
+                  onClick={() => {signInWithGoogle(navigate)}}
                 >
                   <i className="fab fa-google me-2"></i> Sign in with google
                 </button>
