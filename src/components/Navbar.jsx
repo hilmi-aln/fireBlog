@@ -6,14 +6,17 @@ import IconButton from "@mui/material/IconButton";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import cw from "../assets/cw.jpeg";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../contexts/AuthContext";
+import { signOutProfil } from "../helper/Firebase";
 
 export default function Navbar() {
   // const [auth, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -23,6 +26,11 @@ export default function Navbar() {
     setAnchorEl(null);
   };
 
+  const handleLogout = () => {
+    signOutProfil();
+    handleClose();
+    navigate("/login");
+  }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -75,13 +83,23 @@ export default function Navbar() {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
-              <MenuItem onClick={() => navigate("/register")}>
-                Register
-              </MenuItem>
-              {/* <MenuItem onClick={handleClose}>Profil</MenuItem>
-                <MenuItem onClick={handleClose}>New</MenuItem>
-                <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+              {currentUser ? (
+                // console.log("true blok")
+                <>
+                  <MenuItem onClick={handleClose}>Profil</MenuItem>
+                  <MenuItem onClick={handleClose}>New</MenuItem>
+                  <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                  
+                </>
+              ) : (
+                // console.log("false blok")
+                <>
+                  <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
+                  <MenuItem onClick={() => navigate("/register")}>
+                    Register
+                  </MenuItem>
+                </>
+              )}
             </Menu>
           </div>
         </Toolbar>

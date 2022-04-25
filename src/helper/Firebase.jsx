@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 import { errorNotify, successNotify } from "./toastNotify";
 
@@ -54,12 +55,9 @@ export const signInUser = async (email, password, navigate) => {
   }
 };
 
-export const signOutProfil = (navigate) => {
-  signOut(auth).then(() => {
-  navigate("/login")
-}).catch((error) => {
-  console.log(error)
-});
+export const signOutProfil = () => {
+  signOut(auth);
+  
 };
 
 export const signInWithGoogle = (navigate) => {
@@ -68,9 +66,19 @@ export const signInWithGoogle = (navigate) => {
   signInWithPopup(auth, provider)
   .then((result) => {
     navigate("/")
-    console.log(result);
+    // console.log(result);
   }).catch((error) => {
     console.log(error)
 
   });
+};
+
+export const userObserver = (setCurrentUser) => {
+  onAuthStateChanged(auth, (currentUser) => {
+  if (currentUser) {
+    setCurrentUser(currentUser)
+  } else {
+    setCurrentUser(false);
+  }
+});
 };
