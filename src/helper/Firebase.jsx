@@ -9,6 +9,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { errorNotify, successNotify } from "./toastNotify";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
@@ -82,3 +83,5 @@ export const userObserver = (setCurrentUser) => {
   }
 });
 };
+
+const database = getDatabase(app);
