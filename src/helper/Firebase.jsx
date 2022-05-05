@@ -9,7 +9,8 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { errorNotify, successNotify } from "./toastNotify";
-import { getDatabase } from "firebase/database";
+import { getDatabase, onValue, push, ref, set } from "firebase/database";
+import { useEffect, useState } from "react";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
@@ -34,7 +35,7 @@ export const createUser = async (email, password, navigate) => {
     // updateProfile(auth, { displayName: email });
     successNotify("Registered successfully!");
     navigate("/");
-    // console.log(userCredential);
+    console.log(userCredential);
   } catch (error) {
     errorNotify(error.message);
   }
@@ -50,7 +51,7 @@ export const signInUser = async (email, password, navigate) => {
     await signInWithEmailAndPassword(auth, email, password);
     successNotify("Signed in successfully!");
     navigate("/");
-    // console.log(userCredential);
+    console.log(userCredential);
   } catch (error) {
     errorNotify(error.message);
   }
@@ -84,4 +85,38 @@ export const userObserver = (setCurrentUser) => {
 });
 };
 
-const database = getDatabase(app);
+
+export const writeUserData = (title, imageURL, content) => {
+  const db = getDatabase();
+    const userRef=ref(db,"connect/");
+    const newUserRef=push(userRef)
+    set((newUserRef),{
+        title:title,
+        imageURL:imageURL,
+        content:content,
+    })
+};
+
+export const useFetch=()=>{
+  const [isLoading,setIsLoading]=useState(false);
+  const [blogList,setBlogList]=useState();
+
+  useEffect(() => {
+      setIsLoading(true)
+
+      const db = getDatabase();
+      const userRef=ref(db,"connect");
+
+      onValue(userRef, (snapshot) => {
+          const data = snapshot.val();
+          const blogArray=[];
+
+          for(let id in data){
+            blogArray.push({id,...data[id]})
+          }          
+          setBlogList(blogArray);
+          setIsLoading(false);
+      });
+  },[])
+  return {isLoading,blogList}
+}

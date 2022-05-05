@@ -1,26 +1,19 @@
-.newBlog{
-  
+.form-img{
+    width: 200px;
+    box-sizing: inherit;
+    background-color: rgb(4, 101, 130);
+    /* margin: 10px 0px; */
+    padding: 15px 0px;
+    border-radius: 50%;
+}
+.new-blog{
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    
-}
-.newBlog-header{
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    margin: 10px 0px;
+    font-family: 'Girassol', cursive;
+    font-size: 35px;
+    color: rgb(4, 101, 130);
+    background-color: #fafafa;
 }
-img{
-    width: 80%;
-
-}
-/* .newBlog-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-} */
