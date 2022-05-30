@@ -1,14 +1,14 @@
+
 import { createContext, useEffect, useState } from "react";
 import { userObserver } from "../helper/Firebase";
 
 export const AuthContext = createContext();
 
-const AuthContextProvider = ({ children }) => {
+export function AuthContextProvider ({ children })  {
   const [currentUser, setCurrentUser] = useState(false);
 
   useEffect(() => {
     userObserver(setCurrentUser);
-    
   }, []);
 
   return (
@@ -18,4 +18,3 @@ const AuthContextProvider = ({ children }) => {
   );
 };
 
-export default AuthContextProvider;

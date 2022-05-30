@@ -28,7 +28,7 @@ function Register() {
               <div className="card-body p-5 text-center">
                 <img className="mb-5" src={blog} alt="image"/>
 
-                <div className="form-outline mb-4">
+                <div className="form-outline mb-2">
                   <input
                     type="email"
                     id="typeEmailX-2"
@@ -40,7 +40,7 @@ function Register() {
                   </label>
                 </div>
 
-                <div className="form-outline mb-4">
+                <div className="form-outline mb-2">
                   <input
                     type="password"
                     id="typePasswordX-2"

@@ -1,72 +1,66 @@
-import React from "react";
-import { useFetch } from "../../helper/Firebase";
-import loading from "../../assets/loading.gif"
+// import { useFetch } from "../../helper/Firebase";
+import loading from "../../assets/loading.gif";
+import { Box, Grid } from "@material-ui/core";
+
+import "./Dashboard.css";
+import { BlogContext } from "../../contexts/BlogContext";
+import { useContext } from "react";
+import BlogCard from "../../components/BlogCard";
 
 function Dashboard() {
-  const {isLoading, setBlogList} = useFetch();
+  
+  // const {currentUser } = useContext(AuthContext)
+  const { currentBlog, isLoading } = useContext(BlogContext);
   return (
-    
-    <div className="row row-cols-1 row-cols-md-3 g-4 m-4" >
-      {
-        isLoading ? 
-        (
-          <img src={loading} alt="loading"  style={{margin: "auto"}}/>
-        ) : 
-        (
-          <>
-          <div className="col">
-            <div className="card h-100">
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This content is a little bit
-                  longer.
-                </p>
-              </div>
-              <div className="card-footer">
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="card h-100">
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">
-                  This card has supporting text below as a natural lead-in to
-                  additional content.
-                </p>
-              </div>
-              <div className="card-footer">
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </div>
-            </div>
-          </div>
-          <div className="col">
-            <div className="card h-100">
-              <img src="..." className="card-img-top" alt="..." />
-              <div className="card-body">
-                <h5 className="card-title">Card title</h5>
-                <p className="card-text">
-                  This is a wider card with supporting text below as a natural
-                  lead-in to additional content. This card has even longer content
-                  than the first to show that equal height action.
-                </p>
-              </div>
-              <div className="card-footer">
-                <small className="text-muted">Last updated 3 mins ago</small>
-              </div>
-            </div>
-          </div>
-          </>
-        )
-      }
-      
+    <div style={{display: "flex"}}>
+      {isLoading ? <img src={loading} alt="loading" style={{margin: "auto"}}/> : (
+      <Box>
+        <Grid
+          direction="row"
+          justifyContent="space-around"
+          alignItems="center"
+          container
+          spacing={{ xs: 2, md: 3 }}
+          columns={{ xs: 4, sm: 8, md: 12 }}
+        >
+          {currentBlog &&
+            currentBlog.map((element) => {
+              return <BlogCard element={element}/>;
+            })}
+        </Grid>
+      </Box>)}
     </div>
   );
 }
 
 export default Dashboard;
+
+{
+  /* <Grid card xs={4}>
+                      <Card style={{ margin: "1rem" }}>
+                        <CardMedia
+                          component="img"
+                          height="194"
+                          image={blog.imageURL}
+                          alt="Paella dish"
+                        />
+                        <CardHeader
+                          title={blog.title}
+                          subheader="September 14, 2016"
+                        />
+                        <CardContent>
+                          <Typography variant="body2" color="text.secondary">
+                            {blog.content}
+                          </Typography>
+                        </CardContent>
+                        <CardActions disableSpacing>
+                          <IconButton aria-label="add to favorites">
+                            <FavoriteIcon />
+                          </IconButton>
+                          <IconButton aria-label="share">
+                            <ShareIcon />
+                          </IconButton>
+                        </CardActions>
+                      </Card>
+                    </Grid> */
+}

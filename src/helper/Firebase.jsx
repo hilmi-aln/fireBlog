@@ -11,6 +11,7 @@ import {
 import { errorNotify, successNotify } from "./toastNotify";
 import { getDatabase, onValue, push, ref, set } from "firebase/database";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
@@ -97,26 +98,4 @@ export const writeUserData = (title, imageURL, content) => {
     })
 };
 
-export const useFetch=()=>{
-  const [isLoading,setIsLoading]=useState(false);
-  const [blogList,setBlogList]=useState();
 
-  useEffect(() => {
-      setIsLoading(true)
-
-      const db = getDatabase();
-      const userRef=ref(db,"connect");
-
-      onValue(userRef, (snapshot) => {
-          const data = snapshot.val();
-          const blogArray=[];
-
-          for(let id in data){
-            blogArray.push({id,...data[id]})
-          }          
-          setBlogList(blogArray);
-          setIsLoading(false);
-      });
-  },[])
-  return {isLoading,blogList}
-}
