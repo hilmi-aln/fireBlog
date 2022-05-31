@@ -10,10 +10,15 @@ import {
 } from "@material-ui/core";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
+import { useNavigate } from "react-router-dom";
 
 const BlogCard = ({element}) => {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/details/${element.id}`);
+  }
   return (
-    <Grid card xs={4} item >
+    <Grid card xs={4} item style={{cursor : "pointer"}} onClick={handleClick}>
       <Card style={{ margin: "1rem" }}>
         <CardHeader
           title={element.title}

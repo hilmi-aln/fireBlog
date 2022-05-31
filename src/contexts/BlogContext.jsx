@@ -8,6 +8,7 @@ export function BlogContextProvider({ children }) {
   const [isLoading, setIsLoading] = useState();
 
   useEffect(() => {
+    // console.log("useEffect");
     setIsLoading(true);
     const db = getDatabase();
     const blogRef = ref(db, "connect");
@@ -23,11 +24,14 @@ export function BlogContextProvider({ children }) {
     });
   }, []);
 
+  const getBlog = (id) => {
+    const result = currentBlog?.filter((item) => item.id === id);
+    return result;
+  };
+
   return (
-    <BlogContext.Provider value={{ currentBlog, isLoading }}>
+    <BlogContext.Provider value={{ currentBlog, isLoading, getBlog }}>
       {children}
     </BlogContext.Provider>
   );
 }
-
-

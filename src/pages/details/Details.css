@@ -1,0 +1,42 @@
+.detailsPage {
+  min-width: 20rem;
+  max-width: 60rem;
+  border: 1px solid #ccc;
+  margin: auto;
+  height: fit-content;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: fit-content;
+  height: 80vh;
+  font-size: larger;
+}
+.buttons {
+  width: fit-content;
+  display: flex;
+  justify-content: space-evenly;
+  min-width: 40rem;
+  margin: 4px;
+}
+.edit,
+.delete {
+  background-color: #f22248;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  width: 5rem;
+  font-size: larger;
+}
+.edit:hover,
+.delete:hover {
+  background-color: #00A8B5;
+  color: white;
+}
+.container-image {
+  width: fit-content;
+}

@@ -1,5 +1,9 @@
+*{
+  font-family: 'Girassol', cursive;
+}
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
