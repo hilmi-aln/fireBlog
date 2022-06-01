@@ -6,8 +6,9 @@ import { useContext, useEffect, useMemo, useState } from "react";
 import { BlogContext } from "../../contexts/BlogContext";
 
 const UpdateBlog = () => {
-  // const { currentUser } = useContext(BlogContext);
+  const { currentUser } = useContext(BlogContext);
   const [newBlog, setNewBlog] = useState({
+    author: currentUser.email,
     title: "",
     content: "",
     image: "",
@@ -18,6 +19,7 @@ const UpdateBlog = () => {
   const { id } = useParams();
 
   const result = getBlog(id);
+  console.log(result);
   const res = useMemo(() => {
     return result ? result[0] : { title: "", content: "", image: "" };
   }, [result]);
@@ -74,6 +76,19 @@ const UpdateBlog = () => {
                     setNewBlog({ ...newBlog, content: e.target.value });
                   }}
                 />
+
+                <Button
+                  variant="contained"
+                  type="submit"
+                  value="Submit"
+                  style={{
+                    backgroundColor: "rgb(4, 101, 130)",
+                    fontWeight: "bold",
+                  }}
+                >
+                  UPDATE
+                </Button>
+
                 <Button
                   variant="contained"
                   type="submit"

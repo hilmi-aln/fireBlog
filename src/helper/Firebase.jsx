@@ -9,9 +9,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { errorNotify, successNotify } from "./toastNotify";
-import { getDatabase, onValue, push, ref, set } from "firebase/database";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { getDatabase, push, ref, set } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_apiKey,
@@ -49,7 +47,6 @@ export const signInUser = async (email, password, navigate) => {
       email,
       password
     );
-    await signInWithEmailAndPassword(auth, email, password);
     successNotify("Signed in successfully!");
     navigate("/");
     console.log(userCredential);
@@ -60,42 +57,34 @@ export const signInUser = async (email, password, navigate) => {
 
 export const signOutProfil = () => {
   signOut(auth);
-  
 };
 
 export const signInWithGoogle = (navigate) => {
   const provider = new GoogleAuthProvider();
 
   signInWithPopup(auth, provider)
-  .then((result) => {
-    navigate("/")
-    // console.log(result);
-  }).catch((error) => {
-    console.log(error)
-
-  });
+    .then((result) => {
+      navigate("/");
+      // console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 export const userObserver = (setCurrentUser) => {
   onAuthStateChanged(auth, (currentUser) => {
-  if (currentUser) {
-    setCurrentUser(currentUser)
-  } else {
-    setCurrentUser(false);
-  }
-});
+    if (currentUser) {
+      setCurrentUser(currentUser);
+    } else {
+      setCurrentUser(false);
+    }
+  });
 };
 
-
-export const writeUserData = (title, imageURL, content) => {
+export const writeUserData = (blogValue) => {
   const db = getDatabase();
-    const userRef=ref(db,"connect/");
-    const newUserRef=push(userRef)
-    set((newUserRef),{
-        title:title,
-        imageURL:imageURL,
-        content:content,
-    })
+  const userRef = ref(db, "connect/");
+  const newUserRef = push(userRef);
+  set(newUserRef, blogValue);
 };
-
-

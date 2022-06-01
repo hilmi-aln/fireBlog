@@ -4,14 +4,13 @@ import blog from "../../assets/blok.png";
 import { signInUser, signInWithGoogle } from "../../helper/Firebase";
 import "./LoginStyle.css";
 
-
 function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
 
   return (
-    <section  >
+    <section>
       <div className="container py-5 h-50">
         <div className="row d-flex justify-content-center align-items-center h-100">
           <div className="col-12 ">
@@ -20,7 +19,7 @@ function Login() {
               style={{ borderRadius: "1rem" }}
             >
               <div className="card-body p-5 text-center">
-                <img className="mb-5" src={blog} alt="image"/>
+                <img className="mb-5" src={blog} alt="image" />
 
                 <div className="form-outline mb-2">
                   <input
@@ -46,11 +45,12 @@ function Login() {
                   </label>
                 </div>
 
-                
                 <button
                   className="btn btn-primary btn-lg btn-block"
                   type="submit"
-                  onClick={() => {signInUser(email, password, navigate)}}
+                  onClick={() => {
+                    signInUser(email, password, navigate);
+                  }}
                 >
                   Login
                 </button>
@@ -61,11 +61,12 @@ function Login() {
                   className="btn btn-lg btn-block btn-primary"
                   style={{ backgroundColor: "#dd4b39" }}
                   type="submit"
-                  onClick={() => {signInWithGoogle(navigate)}}
+                  onClick={() => {
+                    signInWithGoogle(navigate);
+                  }}
                 >
                   <i className="fab fa-google me-2"></i> Sign in with google
                 </button>
-                
               </div>
             </div>
           </div>
