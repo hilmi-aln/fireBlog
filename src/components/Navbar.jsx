@@ -30,9 +30,9 @@ export default function Navbar() {
     signOutProfil();
     handleClose();
     navigate("/login");
-  }
+  };
   return (
-    <Box sx={{ flexGrow: 1 }} >
+    <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
           <IconButton
@@ -41,13 +41,9 @@ export default function Navbar() {
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
+            onClick={() => navigate("/")}
           >
-            <img
-              src={cw}
-              alt="logo"
-              style={{ width: "2rem" }}
-              onClick={() => navigate("/")}
-            />
+            <img src={cw} alt="logo" style={{ width: "2rem" }} />
           </IconButton>
           <Typography
             variant="h6"
@@ -89,7 +85,6 @@ export default function Navbar() {
                   <MenuItem onClick={handleClose}>Profil</MenuItem>
                   <MenuItem onClick={() => navigate("/new")}>New</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                  
                 </div>
               ) : (
                 // console.log("false blok")

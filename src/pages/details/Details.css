@@ -6,6 +6,9 @@
   height: fit-content;
   margin-top: 10px;
   border-radius: 5px;
+  translate: all 0.5s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  
 }
 .container {
   display: flex;

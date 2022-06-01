@@ -12,7 +12,8 @@ function Dashboard() {
   // const {currentUser } = useContext(AuthContext)
   const { currentBlog, isLoading } = useContext(BlogContext);
   return (
-    <div style={{display: "flex"}}>
+    
+    <div style={{display: "flex", margin:"10px"}}>
       {isLoading ? <img src={loading} alt="loading" style={{margin: "auto"}}/> : (
       <Box>
         <Grid
@@ -24,8 +25,8 @@ function Dashboard() {
           columns={{ xs: 4, sm: 8, md: 12 }}
         >
           {currentBlog &&
-            currentBlog.map((element) => {
-              return <BlogCard element={element}/>;
+            currentBlog.map((element, index) => {
+              return <BlogCard element={element} key={index}/>;
             })}
         </Grid>
       </Box>)}
@@ -35,32 +36,3 @@ function Dashboard() {
 
 export default Dashboard;
 
-{
-  /* <Grid card xs={4}>
-                      <Card style={{ margin: "1rem" }}>
-                        <CardMedia
-                          component="img"
-                          height="194"
-                          image={blog.imageURL}
-                          alt="Paella dish"
-                        />
-                        <CardHeader
-                          title={blog.title}
-                          subheader="September 14, 2016"
-                        />
-                        <CardContent>
-                          <Typography variant="body2" color="text.secondary">
-                            {blog.content}
-                          </Typography>
-                        </CardContent>
-                        <CardActions disableSpacing>
-                          <IconButton aria-label="add to favorites">
-                            <FavoriteIcon />
-                          </IconButton>
-                          <IconButton aria-label="share">
-                            <ShareIcon />
-                          </IconButton>
-                        </CardActions>
-                      </Card>
-                    </Grid> */
-}
