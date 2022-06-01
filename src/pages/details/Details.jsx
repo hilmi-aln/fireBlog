@@ -5,15 +5,17 @@ import "./Details.css";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const Details = () => {
-  const { getBlog } = useContext(BlogContext);
+  const { getBlog, deleteBlog } = useContext(BlogContext);
   const { currentUser } = useContext(AuthContext);
   const { id } = useParams();
   const result = getBlog(id);
-  console.log(result);
-  console.log(currentUser);
-  
-
+  // console.log(result);
+  // console.log(currentUser);
   const navigate = useNavigate();
+  const handleDelete = () => {
+    deleteBlog(id);
+    navigate("/");
+  }
 
   return (
     <div>
@@ -33,7 +35,7 @@ const Details = () => {
             {
               currentUser.email === result[0].author ? ( <div className="buttons">
               <button className="edit" onClick={() => {navigate(`/updateBlog/${id}`)}}>Edit</button>
-              <button className="delete">Delete</button>
+              <button className="delete" onClick={handleDelete}>Delete</button>
             </div> ) : null
             }
             

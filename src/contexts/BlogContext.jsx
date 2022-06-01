@@ -37,8 +37,15 @@ export function BlogContextProvider({ children }) {
     return update(ref(db),updates)
   }
 
+  function deleteBlog(id) {
+    const db = getDatabase();
+    const updates={};
+    updates["connect/"+id]=null;
+    return update(ref(db),updates)
+  }
+
   return (
-    <BlogContext.Provider value={{ currentBlog, isLoading, getBlog ,updateBlog}}>
+    <BlogContext.Provider value={{ currentBlog, isLoading, getBlog ,updateBlog, deleteBlog}}>
       {children}
     </BlogContext.Provider>
   );
