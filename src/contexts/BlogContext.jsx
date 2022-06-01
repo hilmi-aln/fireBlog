@@ -1,4 +1,4 @@
-import { getDatabase, onValue, query, ref } from "firebase/database";
+import { getDatabase, onValue, query, ref, update } from "firebase/database";
 import { createContext, useEffect, useState } from "react";
 
 export const BlogContext = createContext();
@@ -24,32 +24,18 @@ export function BlogContextProvider({ children }) {
     });
   }, []);
 
-  const getBlog = (id) => {
+  function getBlog(id) {
     const result = currentBlog?.filter((item) => item.id === id);
     return result;
   };
 
-  const updateBlog = (id, title, imageURL, content) => {
+  function updateBlog(id, data) {
     const db = getDatabase();
-    const blogRef = ref(db, "connect");
-
-    onValue(query(blogRef), (snapshot) => {
-      const blogs = snapshot.val();
-      console.log(blogs["N3Ibz2SBVX1DgvWbLts"])
-      // if(blogs.id === id){
-      //   blogs.title = title;
-      //   blogs.imageURL = imageURL;
-      //   blogs.content = content;
-      //   setCurrentBlog(blogs)
-      // }
-      // const blogL = [];
-      // for (let id in blogs) {
-      //   blogL.push({ id, ...blogs[id] });
-      // }
-      // setCurrentBlog(blogL);
-      // setIsLoading(false);
-    });
-  };
+    // const newUserKey=push(child(ref(db),"blogs/")).key;
+    const updates={};
+    updates["connect/"+id]=data;
+    return update(ref(db),updates)
+  }
 
   return (
     <BlogContext.Provider value={{ currentBlog, isLoading, getBlog ,updateBlog}}>

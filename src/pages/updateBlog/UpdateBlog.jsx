@@ -2,25 +2,35 @@ import { Button, Stack, TextField } from "@mui/material";
 import { Box } from "@mui/system";
 import blogimage from "../../assets/blok.png";
 import { useNavigate, useParams } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { BlogContext } from "../../contexts/BlogContext";
 
 const UpdateBlog = () => {
-  const [title, setTitle] = useState();
-  const [imageURL, setImageURL] = useState();
-  const [content, setContent] = useState();
-
+  // const { currentUser } = useContext(BlogContext);
+  const [newBlog, setNewBlog] = useState({
+    title: "",
+    content: "",
+    image: "",
+  });
 
   const navigate = useNavigate();
   const { getBlog, updateBlog } = useContext(BlogContext);
   const { id } = useParams();
-  const blog = getBlog(id);
-  // console.log("first");
+
+  const result = getBlog(id);
+  const res = useMemo(() => {
+    return result ? result[0] : { title: "", content: "", image: "" };
+  }, [result]);
+
+  useEffect(() => {
+    setNewBlog(res);
+  }, [res]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateBlog(id, title, imageURL, content);
+    updateBlog(id, newBlog);
     navigate("/");
-  }
+  };
 
   return (
     <div>
@@ -33,21 +43,25 @@ const UpdateBlog = () => {
             justifyContent="center"
             alignItems="center"
           >
-            <form onSubmit = {handleSubmit}>
+            <form onSubmit={handleSubmit}>
               <Stack spacing={3} direction="column">
                 <TextField
                   variant="outlined"
                   label="Title"
                   required
-                  defaultValue={blog[0].title}
-                  onChange={(e) => {setTitle(e.target.value)}}
+                  defaultValue={result[0].title}
+                  onChange={(e) => {
+                    setNewBlog({ ...newBlog, title: e.target.value });
+                  }}
                 />
                 <TextField
                   variant="outlined"
                   label="Image URL"
                   required
-                  value={blog[0].imageURL}
-                  onChange={(e) => {setImageURL(e.target.value)}}
+                  value={result[0].imageURL}
+                  onChange={(e) => {
+                    setNewBlog({ ...newBlog, imageURL: e.target.value });
+                  }}
                 />
                 <TextField
                   variant="outlined"
@@ -55,8 +69,10 @@ const UpdateBlog = () => {
                   multiline
                   rows={10}
                   required
-                  value={blog[0].content}
-                  onChange={(e) => setContent(e.target.value)}
+                  value={result[0].content}
+                  onChange={(e) => {
+                    setNewBlog({ ...newBlog, content: e.target.value });
+                  }}
                 />
                 <Button
                   variant="contained"
