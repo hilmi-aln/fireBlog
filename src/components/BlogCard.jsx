@@ -18,12 +18,7 @@ const BlogCard = ({ element }) => {
     navigate(`/details/${element.id}`);
   };
   return (
-    <Grid
-      item
-      xs={4}
-      style={{ marginTop: "20px", cursor: "pointer" , minWidth: "25rem", flexWrap:"wrap"}}
-      onClick={handleClick}
-    >
+    <Grid item xs={3} style={{ cursor: "pointer" }} onClick={handleClick}>
       <Card style={{ margin: "1rem" }}>
         <CardHeader
           title={element.title}
@@ -34,6 +29,7 @@ const BlogCard = ({ element }) => {
           height="194"
           image={element.imageURL}
           alt="blog-image"
+          style={{ width: "fit-content", margin: "auto" }}
         />
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">

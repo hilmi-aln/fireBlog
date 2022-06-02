@@ -1,3 +1,6 @@
+*{
+  font-family: 'Girassol', cursive;
+}
 .detailsPage {
   min-width: 20rem;
   max-width: 60rem;

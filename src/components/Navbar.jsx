@@ -82,7 +82,6 @@ export default function Navbar() {
               {currentUser ? (
                 // console.log("true blok")
                 <div>
-                  <MenuItem onClick={handleClose}>Profil</MenuItem>
                   <MenuItem onClick={() => navigate("/new")}>New</MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                 </div>
